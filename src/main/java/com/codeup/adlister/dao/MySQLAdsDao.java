@@ -1,6 +1,7 @@
 package com.codeup.adlister.dao;
 
 import com.codeup.adlister.models.Ad;
+import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import java.io.FileInputStream;
@@ -55,20 +56,61 @@ public class MySQLAdsDao implements Ads {
         }
     }
 
-    private Ad extractAd(ResultSet rs) throws SQLException {
-        return new Ad(
-            rs.getLong("id"),
-            rs.getLong("user_id"),
-            rs.getString("title"),
-            rs.getString("description")
-        );
-    }
-
     private List<Ad> createAdsFromResults(ResultSet rs) throws SQLException {
         List<Ad> ads = new ArrayList<>();
         while (rs.next()) {
             ads.add(extractAd(rs));
         }
         return ads;
+    }
+
+    private Ad extractAd(ResultSet rs) throws SQLException {
+        return new Ad(
+                rs.getLong("id"),
+                rs.getLong("user_id"),
+                rs.getString("title"),
+                rs.getString("description")
+        );
+    }
+
+    // method to grab the user's information from the ad
+    @Override
+    public User getUserInfo(long id) {
+        try {
+            ResultSet rs = queryDb("SELECT * FROM users WHERE id = ?", id);
+            rs.next();
+            return extractUser(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting user information.", e);
+        }
+    }
+
+    // method to help extract the user info and create/return User object
+    private User extractUser(ResultSet rs) throws SQLException {
+        return new User(
+            rs.getLong("id"),
+            rs.getString("username"),
+            rs.getString("email"),
+            rs.getString("password")
+        );
+    }
+
+    // method to help grab the ad info from the given ad id
+    @Override
+    public Ad getAdInfo(long adId) {
+        try {
+            ResultSet rs = queryDb("SELECT * FROM ads WHERE id = ?", adId);
+            rs.next();
+            return extractAd(rs);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error getting user information.", e);
+        }
+    }
+
+    private ResultSet queryDb(String query, long id) throws SQLException {
+        PreparedStatement stmt = connection.prepareStatement(query);
+        stmt.setLong(1, id);
+        ResultSet rs = stmt.executeQuery();
+        return rs;
     }
 }

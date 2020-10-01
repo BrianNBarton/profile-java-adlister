@@ -14,8 +14,7 @@
 
     <c:forEach var="ad" items="${ads}">
         <div class="col-md-6">
-            <h2>${ad.title}</h2>
-            <p>${ad.description}</p>
+            <a href="/details?adId=${ad.id}&userId=${ad.userId}">${ad.title}</a>
         </div>
     </c:forEach>
 </div>
