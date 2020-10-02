@@ -4,7 +4,6 @@ import com.codeup.adlister.models.User;
 import com.mysql.cj.jdbc.Driver;
 
 import java.sql.*;
-import java.util.List;
 
 public class MySQLUsersDao implements Users {
     private Connection connection;
@@ -22,7 +21,7 @@ public class MySQLUsersDao implements Users {
         }
     }
 
-s
+
     @Override
     public User findByUsername(String username) {
         String query = "SELECT * FROM users WHERE username = ? LIMIT 1";
@@ -63,16 +62,19 @@ s
             rs.getString("password")
         );
     }
-    public List<User> getAllUsers() {
+    public void getAllUsers() {
 
         try {
             String query = "SELECT * FROM users";
             PreparedStatement stmt = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = stmt.executeQuery();
             extractUser(rs);
+
         } catch (SQLException e) {
             throw new RuntimeException("Error creating new user", e);
         }
+
+    return;
     }
 }
 
