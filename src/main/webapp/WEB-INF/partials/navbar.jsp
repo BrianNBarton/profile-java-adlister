@@ -8,7 +8,7 @@
 
         <ul class="nav navbar-nav navbar-right align-item-center">
             <li class="nav-item">
-                <form class="navbar-form" action="/ads/search" method="get">
+                <form class="navbar-form" action="/search" method="get">
                     <label for="search">Search:</label>
                     <input id="search" name="search" class="form-control" type="text" placeholder="Ad Title">
                 </form>

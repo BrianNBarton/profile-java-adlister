@@ -2,7 +2,11 @@
   Created by IntelliJ IDEA.
   User: brian
   Date: 10/1/20
+<<<<<<< HEAD
   Time: 12:52 PM
+=======
+  Time: 10:14 AM
+>>>>>>> f09fea523ff9af5c90bfcdc337d85d7f64d9bcd1
   To change this template use File | Settings | File Templates.
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,6 +15,7 @@
     <div class="panel panel-danger">
         <div class="panel-heading">
             <h3 class="panel-title">woops!</h3>
+
         </div>
         <div class="panel-body">
                 ${error}

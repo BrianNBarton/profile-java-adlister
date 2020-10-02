@@ -11,3 +11,5 @@ VALUES
 ('tim', 'tim@megami.nd', 'boudreaux'),
 ('trevor', 'trevor@megami.nd', 'arnold');
 SELECT * FROM users;
+
+DS
